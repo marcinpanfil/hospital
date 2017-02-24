@@ -1,7 +1,7 @@
 package com.edgelab.hospital.report;
 
+import com.edgelab.hospital.Condition;
 import com.edgelab.hospital.Patient;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,16 +12,19 @@ import java.util.Map;
  */
 public class PatientDiseaseCounter implements DiseaseCounter {
 
-    private final char[] possibleDiseases = {'F', 'H', 'D', 'T', 'X'};
-
-    public Map<Character, Integer> count(List<Patient> patients) {
-        Map<Character, Integer> count = new LinkedHashMap<>();
-        StringBuilder diseases = new StringBuilder();
-        patients.forEach(patient -> diseases.append(patient.getConditions()));
-        for (char possibleDisease : possibleDiseases) {
-            count.put(possibleDisease, StringUtils.countMatches(diseases, possibleDisease));
+    public Map<Condition, MutableInt> count(List<Patient> patients) {
+        Map<Condition, MutableInt> count = new LinkedHashMap<>();
+        for (Condition condition : Condition.values()) {
+            count.put(condition, new MutableInt());
         }
+        patients.stream().forEach(p -> {
+            p.getConditions().forEach(c -> {
+                MutableInt value = count.get(c);
+                value.increment();
+            });
+        });
         return count;
     }
+
 
 }

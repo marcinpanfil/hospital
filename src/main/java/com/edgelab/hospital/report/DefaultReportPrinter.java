@@ -1,5 +1,6 @@
 package com.edgelab.hospital.report;
 
+import com.edgelab.hospital.Condition;
 import com.edgelab.hospital.Patient;
 
 import java.util.List;
@@ -19,11 +20,11 @@ public class DefaultReportPrinter implements ReportPrinter {
     @Override
     public String print(List<Patient> patients) {
         StringBuilder outputBuilder = new StringBuilder();
-        Map<Character, Integer> diseaseCount = diseaseCounter.count(patients);
-        for (Character diseaseName : diseaseCount.keySet()) {
-            outputBuilder.append(diseaseName);
+        Map<Condition, MutableInt> conditionCount = diseaseCounter.count(patients);
+        for (Condition condition : conditionCount.keySet()) {
+            outputBuilder.append(condition.getCondition());
             outputBuilder.append(":");
-            outputBuilder.append(diseaseCount.get(diseaseName));
+            outputBuilder.append(conditionCount.get(condition).get());
             outputBuilder.append(" ");
         }
         return outputBuilder.toString().replaceAll("[ ]$", "");

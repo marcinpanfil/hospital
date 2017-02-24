@@ -9,19 +9,17 @@ import lombok.Getter;
 @Getter
 public enum Medicine {
 
-    ASPIRIN('F', true),
-    ANTIBIOTIC('T', true),
-    INSULIN('D', false),
-    PARACETAMOL('F', true);
+    ASPIRIN(Condition.FEVER, true),
+    ANTIBIOTIC(Condition.TUBERCULOSIS, true),
+    INSULIN(Condition.DIABETES, false),
+    PARACETAMOL(Condition.FEVER, true);
 
-    private char disease;
+    private Condition condition;
     private boolean cureCompletely;
 
-    Medicine(char disease, boolean cureCompletely) {
-        this.disease = disease;
+    Medicine(Condition condition, boolean cureCompletely) {
+        this.condition = condition;
         this.cureCompletely = cureCompletely;
     }
-
-
 
 }

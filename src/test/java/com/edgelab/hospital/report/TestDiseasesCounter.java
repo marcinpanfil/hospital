@@ -1,5 +1,6 @@
 package com.edgelab.hospital.report;
 
+import com.edgelab.hospital.Condition;
 import com.edgelab.hospital.Patient;
 
 import java.util.HashMap;
@@ -11,13 +12,12 @@ import java.util.Map;
  */
 public class TestDiseasesCounter implements DiseaseCounter {
 
-    private final char[] possibleDiseases = {'F', 'H', 'D', 'T', 'X'};
 
     @Override
-    public Map<Character, Integer> count(List<Patient> patients) {
-        Map<Character, Integer> diseasesCount = new HashMap<>();
-        for (char possibleDisease : possibleDiseases) {
-            diseasesCount.put(possibleDisease, 2);
+    public Map<Condition, MutableInt> count(List<Patient> patients) {
+        Map<Condition, MutableInt> diseasesCount = new HashMap<>();
+        for (Condition condition : Condition.values()) {
+            diseasesCount.put(condition, new MutableInt(2));
         }
         return diseasesCount;
     }

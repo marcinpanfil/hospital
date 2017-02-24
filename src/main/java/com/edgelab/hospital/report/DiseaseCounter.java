@@ -1,5 +1,6 @@
 package com.edgelab.hospital.report;
 
+import com.edgelab.hospital.Condition;
 import com.edgelab.hospital.Patient;
 
 import java.util.List;
@@ -10,6 +11,6 @@ import java.util.Map;
  */
 interface DiseaseCounter {
 
-    Map<Character, Integer> count(List<Patient> patients);
+    Map<Condition, MutableInt> count(List<Patient> patients);
 
 }

@@ -16,7 +16,12 @@ public class Quarantine {
     public Quarantine(String subjects) {
         String[] patientsState = subjects.split(",");
         for (String state : patientsState) {
-            patients.add(new Patient(state.toCharArray()));
+            char[] shortNames = state.toCharArray();
+            List<Condition> conditions = new ArrayList<>();
+            for (char shortName : shortNames) {
+                conditions.add(Condition.getByShortName(String.valueOf(shortName)));
+            }
+            patients.add(new Patient(conditions));
         }
     }
 

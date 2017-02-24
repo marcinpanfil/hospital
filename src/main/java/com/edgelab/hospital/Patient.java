@@ -1,7 +1,6 @@
 package com.edgelab.hospital;
 
 import lombok.Getter;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +12,10 @@ import java.util.List;
 @Getter
 public class Patient {
 
-    private char[] conditions;
+    private List<Condition> conditions;
     private List<Medicine> medicines = new ArrayList<>();
 
-    public Patient(char[] conditions) {
+    public Patient(List<Condition> conditions) {
         this.conditions = conditions;
     }
 
@@ -24,23 +23,26 @@ public class Patient {
         medicines.add(medicine);
     }
 
-    public void cure(char diseaseCure) {
-        this.conditions = ArrayUtils.removeElement(this.conditions, diseaseCure);
+    public void cure(Condition diseaseToCure) {
+        conditions.remove(diseaseToCure);
     }
 
     public boolean isAlive() {
-        return this.conditions[0] != 'X';
+        return this.conditions.get(0) != Condition.DEAD;
     }
 
     public void kill() {
-        conditions = new char[]{'X'};
+        conditions = new ArrayList<>();
+        conditions.add(Condition.DEAD);
     }
 
     public void makeSick() {
-        conditions = new char[]{'F'};
+        conditions.remove(Condition.HEALTHY);
+        conditions.add(Condition.FEVER);
     }
 
     public void cureCompletely() {
-        conditions = new char[] {'H'};
+        conditions = new ArrayList<>();
+        conditions.add(Condition.HEALTHY);
     }
 }

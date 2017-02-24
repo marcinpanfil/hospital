@@ -1,10 +1,12 @@
 package com.edgelab.hospital.report;
 
+import com.edgelab.hospital.Condition;
 import com.edgelab.hospital.Patient;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -20,21 +22,21 @@ public class PatientDiseaseCounterTest {
 
     @Before
     public void setUp() {
-        patients.add(new Patient(new char[]{'F', 'T'}));
-        patients.add(new Patient(new char[]{'F', 'D'}));
-        patients.add(new Patient(new char[]{'D', 'T'}));
-        patients.add(new Patient(new char[]{'X'}));
-        patients.add(new Patient(new char[]{'H'}));
+        patients.add(new Patient(Arrays.asList(Condition.FEVER, Condition.TUBERCULOSIS)));
+        patients.add(new Patient(Arrays.asList(Condition.FEVER, Condition.DIABETES)));
+        patients.add(new Patient(Arrays.asList(Condition.DIABETES, Condition.TUBERCULOSIS)));
+        patients.add(new Patient(Arrays.asList(Condition.HEALTHY)));
+        patients.add(new Patient(Arrays.asList(Condition.DEAD)));
     }
 
     @Test
     public void count() throws Exception {
-        Map<Character, Integer> count = patientDiseaseCounter.count(patients);
-        assertEquals(2, count.get('F').intValue());
-        assertEquals(2, count.get('T').intValue());
-        assertEquals(1, count.get('H').intValue());
-        assertEquals(2, count.get('D').intValue());
-        assertEquals(1, count.get('X').intValue());
+        Map<Condition, MutableInt> count = patientDiseaseCounter.count(patients);
+        assertEquals(2, count.get(Condition.FEVER).get());
+        assertEquals(2, count.get(Condition.TUBERCULOSIS).get());
+        assertEquals(1, count.get(Condition.HEALTHY).get());
+        assertEquals(2, count.get(Condition.DIABETES).get());
+        assertEquals(1, count.get(Condition.DEAD).get());
     }
 
 }

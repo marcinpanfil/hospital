@@ -13,9 +13,9 @@ class TreatmentChecker {
 
         if (!patient.isAlive()) return;
 
-        patient.getMedicines().stream().filter(Medicine::isCureCompletely).forEach(m -> patient.cure(m.getDisease()));
+        patient.getMedicines().stream().filter(Medicine::isCureCompletely).forEach(m -> patient.cure(m.getCondition()));
 
-        if(patient.getConditions().length == 0) {
+        if(patient.getConditions().size() == 0) {
             patient.cureCompletely();
         }
     }

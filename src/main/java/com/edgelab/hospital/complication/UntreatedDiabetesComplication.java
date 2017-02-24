@@ -1,8 +1,8 @@
 package com.edgelab.hospital.complication;
 
+import com.edgelab.hospital.Condition;
 import com.edgelab.hospital.Medicine;
 import com.edgelab.hospital.Patient;
-import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Created by Marcin Panfil on 24.02.17.
@@ -10,7 +10,7 @@ import org.apache.commons.lang3.ArrayUtils;
 public class UntreatedDiabetesComplication implements Complication {
     @Override
     public Patient complicationResult(Patient patient) {
-        if (ArrayUtils.contains(patient.getConditions(), 'D')
+        if (patient.getConditions().contains(Condition.DIABETES)
                 && !patient.getMedicines().contains(Medicine.INSULIN)) {
             patient.kill();
         }
